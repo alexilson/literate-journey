@@ -86,15 +86,6 @@ app.delete('/api/notes/:id', (req, res) => {
                         res.sendFile(path.join(__dirname, '/public/notes.html'))
                     }
                 });
-    
-
-                // res.sendFile(path.join(__dirname, '/public/notes.html'))
-
-                // parsedNotes.forEach((note) => {
-                //     if (note.id === noteId) {
-                //         console.log("Found the ID!");
-                //     }
-                // })
             }
         })
     }
