@@ -12,9 +12,6 @@ app.use(express.urlencoded({ extended: true}));
 
 app.use(express.static('./public'));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'))
-});
 
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/notes.html'))
@@ -34,35 +31,35 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     
     const { title, text } = req.body;
-
+    
     const newNote = {
         id: uuid(),
         title: title,
         text: text
     }
-
+    
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
             console.error(err);
         } else {
             const parsedNotes = JSON.parse(data);
-
+            
             parsedNotes.push(newNote);
-
+            
             fs.writeFile(
                 './db/db.json',
                 JSON.stringify(parsedNotes, null, 4),
                 (err) => {
-                if (err) {
-                    console.error(err)
-                } else {
-                    res.sendFile(path.join(__dirname, '/public/notes.html'))
-                }
-            });
-        }
-    })
-});
-
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        res.sendFile(path.join(__dirname, '/public/notes.html'))
+                    }
+                });
+            }
+        })
+    });
+    
 app.delete('/api/notes/:id', (req, res) => {
     const noteId = req.params.id;
 
@@ -72,27 +69,32 @@ app.delete('/api/notes/:id', (req, res) => {
                 console.error(err);
             } else {
                 const parsedNotes = JSON.parse(data);
-
+                
                 const indexToRemove = parsedNotes.findIndex(note => note.id === noteId)
 
                 if (indexToRemove !== -1) {
                     parsedNotes.splice(indexToRemove, 1);
                     res.sendFile(path.join(__dirname, '/public/notes.html'));
                 }
-
+                
                 fs.writeFile(
                     './db/db.json',
                     JSON.stringify(parsedNotes, null, 4),
                     (err) => {
-                    if (err) {
-                        console.error(err)
-                    } else {
-                        res.sendFile(path.join(__dirname, '/public/notes.html'))
+                        if (err) {
+                            console.error(err)
+                        } else {
+                            res.sendFile(path.join(__dirname, '/public/notes.html'))
+                        }
                     }
-                });
+                );
             }
         })
     }
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'))
 });
 
 app.listen(PORT, () =>
