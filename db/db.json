@@ -1,9 +1,11 @@
 [
     {
+        "id":0,
         "title":"Test Title",
         "text":"Test text"
     },
     {
+        "id":1,
         "title":"Test Title 2",
         "text":"Damn that's a shaved head, did you go to the barber ask for a Natalie Portman?"
     }
