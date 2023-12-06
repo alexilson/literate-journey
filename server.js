@@ -4,7 +4,7 @@ const fs = require('fs');
 const uuid = require('./helpers/uuid')
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // the json middleware will parse the request body as a json
 app.use(express.json());
