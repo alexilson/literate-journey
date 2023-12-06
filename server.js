@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require('path');
-const db = require('./db/db.json');
 const fs = require('fs');
+const uuid = require('./helpers/uuid')
 
 const app = express();
 const PORT = 3001;
@@ -17,23 +17,47 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
-    res.json(db)
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+        } else {
+            const parsedNotes = JSON.parse(data);
+            res.json(parsedNotes);
+        }
+    })
 });
 
 app.post('/api/notes', (req, res) => {
-    const { title, text } = req.body;
     
+    const { title, text } = req.body;
+
+    const newNote = {
+        id: uuid(),
+        title: title,
+        text: text
+    }
+
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+        } else {
+            const parsedNotes = JSON.parse(data);
+
+            parsedNotes.push(newNote);
+
+            fs.writeFile(
+                './db/db.json',
+                JSON.stringify(parsedNotes, null, 4),
+                (err) => {
+                if (err) {
+                    console.error(err)
+                } else {
+                    res.sendFile(path.join(__dirname, '/public/notes.html'))
+                }
+            });
+        }
+    })
 });
 
 app.listen(PORT, () =>
 console.log(`Literate-Journey listening at http://localhost:${PORT}/`))
-
-// const newNote = {
-//     title: noteTitle.value,
-//     text: noteText.value
-//   };
-
-// Code borrowed from activity 18
-// Immediately export a function that generates a string of random numbers and letters.
-const uuid = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
-
