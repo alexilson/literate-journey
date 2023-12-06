@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="/assets/css/styles.css" />
   </head>
 
-  <body class="bg-dark">
-    <nav class="navbar bg-dark">
-      <a class="navbar-brand text-light bg-dark p-3" href="/">Note Taker </a>
+  <body>
+    <nav class="navbar bg-info">
+      <a class="navbar-brand text-light p-3" href="/">Note Taker </a>
       <div class="icons">
         <button type="button" class="btn btn-outline-light btn-sm save-note">
           <span class="fas fa-save"></span>
@@ -36,19 +36,19 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-4 list-container" id="list-container">
-          <div class="card bg-dark">
+          <div class="card">
             <ul class="list-group" id="list-group"></ul>
           </div>
         </div>
         <div class="col-8">
           <form class="note-form">
             <input
-            class="note-title bg-info text-light"
+            class="note-title"
             placeholder="Note Title"
             maxlength="28"
             type="text"
             />
-            <textarea class="note-textarea bg-dark" placeholder="Note Text"></textarea>
+            <textarea class="note-textarea" placeholder="Note Text"></textarea>
             </form>
         </div>
       </div>
