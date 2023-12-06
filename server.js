@@ -28,7 +28,9 @@ app.get('/api/notes', (req, res) => {
 });
 
 app.post('/api/notes', (req, res) => {
+    
     const { title, text } = req.body;
+
     const newNote = {
         id: uuid(),
         title: title,
@@ -50,7 +52,7 @@ app.post('/api/notes', (req, res) => {
                 if (err) {
                     console.error(err)
                 } else {
-                    return
+                    res.sendFile(path.join(__dirname, '/public/notes.html'))
                 }
             });
         }
