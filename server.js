@@ -59,5 +59,46 @@ app.post('/api/notes', (req, res) => {
     })
 });
 
+app.delete('/api/notes/:id', (req, res) => {
+    const noteId = req.params.id;
+
+    if (noteId) {
+        fs.readFile('./db/db.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+            } else {
+                const parsedNotes = JSON.parse(data);
+
+                const indexToRemove = parsedNotes.findIndex(note => note.id === noteId)
+
+                if (indexToRemove !== -1) {
+                    parsedNotes.splice(indexToRemove, 1);
+                    res.sendFile(path.join(__dirname, '/public/notes.html'));
+                }
+
+                fs.writeFile(
+                    './db/db.json',
+                    JSON.stringify(parsedNotes, null, 4),
+                    (err) => {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        res.sendFile(path.join(__dirname, '/public/notes.html'))
+                    }
+                });
+    
+
+                // res.sendFile(path.join(__dirname, '/public/notes.html'))
+
+                // parsedNotes.forEach((note) => {
+                //     if (note.id === noteId) {
+                //         console.log("Found the ID!");
+                //     }
+                // })
+            }
+        })
+    }
+});
+
 app.listen(PORT, () =>
 console.log(`Literate-Journey listening at http://localhost:${PORT}/`))
