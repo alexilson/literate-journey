@@ -1,5 +1,10 @@
 # Literate Journey
 
+Live URL: https://literate-journey-a56f598a2635.herokuapp.com/
+
+Repo URL: https://github.com/alexilson/literate-journey
+
+
 ## Description
 Begin your Literate Journey today! This web app is designed to let you take notes and will save the notes to a database file, allowing you to visit the app later and recall all of your notes. It is even possible to delete your notes that you previously saved!
 
@@ -30,11 +35,11 @@ After loading the URL, click the Get Started button. Then, click in the Note Tit
 ## License
 MIT License
 
-## Contributing
-It is not currently possible to contribute to this project.
+## Borrowed Code
 
-## Tests
-Coming in a future enhancement!
+server.js -> lines 96 through 103 were based on output from Xpert Learning Assistant.
+
+/helpers/uuid.js -> Borrowed from Activity 18 and slightly modified.
 
 ## Questions
 For additional questions, please contact me here:
