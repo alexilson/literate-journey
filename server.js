@@ -100,9 +100,6 @@ app.delete('/api/notes/:id', (req, res) => {
                     // ... splice starts removing the items at the index provided and will remove the number specified with the next input
                     // so in this case it will remove the item at the index provided and only remove 1 item.
                     parsedNotes.splice(indexToRemove, 1);
-
-                    // Test removing this, I don't think it's necessary.
-                    // res.sendFile(path.join(__dirname, '/public/notes.html'));
                 }
                 
                 // write the array to the file, now without the selected note
